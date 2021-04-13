@@ -2,14 +2,20 @@
 // Create an array of each country's numbers
 function init() {
   d3.json("samples.json").then(function(data) {
-    var initial_ID = data.samples[0].id;
-    var initial_labels = data.samples[0].otu_labels;
+    var initial_ID = data.samples[0].id.slice(0,9);
+    var initial_labels = data.samples[0].otu_ids;
+    var names = initial_labels.map((item, index) => `OTU ${item}`);
     var initial_values = data.samples[0].sample_values;
-
+    var initial_text =  data.samples[0].otu_labels;
+    console.log(initial_values);
     var trace = {
-      x: initial_labels,
-      y: initial_values,
-      type: "bar"
+      x: initial_values.slice(0,9),
+      y: names.slice(0.9),
+      orientation: 'h',
+      type: "bar",
+      text: initial_text.slice(0.9),
+      marker: {
+        color: 'rgb(142,124,195)'}
     };
   
     var data = [trace];
@@ -21,6 +27,34 @@ function init() {
     };
 
   Plotly.newPlot("bar", data, layout);
+
+    var trace1 = {
+      x: initial_labels,
+      y: initial_values,
+      text: initial_text,
+      mode: 'markers',
+      marker: {
+        color: initial_labels,
+        opacity: 0.8,
+        size: initial_values,
+        sizeref: 2.0 * Math.max(initial_values) / (10**2),
+        sizemode: 'area'
+      },
+      
+    };
+    
+    var data = [trace1];
+    
+    var layout = {
+      title: 'Marker Size and Color',
+      showlegend: false,
+      height: 400,
+      width: 800
+    };
+  
+  Plotly.newPlot('bubble', data, layout);  
+
+
   });
 };
 
