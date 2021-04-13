@@ -1,9 +1,39 @@
 
+// Create an array of each country's numbers
+function init() {
+  d3.json("samples.json").then(function(data) {
+    var initial_ID = data.samples[0].id;
+    var initial_labels = data.samples[0].otu_labels;
+    var initial_values = data.samples[0].sample_values;
+
+    var trace = {
+      x: initial_labels,
+      y: initial_values,
+      type: "bar"
+    };
+  
+    var data = [trace];
+
+    var layout = {
+      title: initial_ID,
+      xaxis: { title: "OTU"},
+      yaxis: { title: "Value"}
+    };
+
+  Plotly.newPlot("bar", data, layout);
+  });
+};
+
+
+
+
+
 function unpack(rows, index) {
     return rows.map(function(row) {
       return row[index];
     });
   };
+
 
 d3.json("samples.json").then(function(data) {
     var otuIDs = [];
@@ -41,5 +71,4 @@ d3.json("samples.json").then(function(data) {
 
 
 // On change to the DOM, call getData()
-
-    
+init()
