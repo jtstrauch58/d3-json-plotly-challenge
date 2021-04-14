@@ -2,12 +2,26 @@
 // Create an array of each country's numbers
 function init() {
   d3.json("samples.json").then(function(data) {
-    var initial_ID = data.samples[0].id.slice(0,9);
+    var initial_ID = data.samples[0].id;
     var initial_labels = data.samples[0].otu_ids;
     var names = initial_labels.map((item, index) => `OTU ${item}`);
     var initial_values = data.samples[0].sample_values;
     var initial_text =  data.samples[0].otu_labels;
-    console.log(initial_values);
+    var demo_info = data.metadata[0];
+    
+    var demo = d3.select('.panel-title');
+    
+    console.log(demo_info);
+
+    Object.entries(demo_info).forEach(([key, value]) => {
+    console.log(`Key: ${key} and Value ${value}`);
+    var demo_row = demo.append("li");
+    demo_row.text(`${key}: ${value}`);
+    });
+    // 
+    // demo_row.text(`${info.key}: ${info.value}`);
+    // });
+
     var trace = {
       x: initial_values.slice(0,9),
       y: names.slice(0.9),
@@ -37,7 +51,7 @@ function init() {
         color: initial_labels,
         opacity: 0.8,
         size: initial_values,
-        sizeref: 2.0 * Math.max(initial_values) / (10**2),
+        sizeref: 1.0 * Math.max(initial_values) / (1**2),
         sizemode: 'area'
       },
       
@@ -52,8 +66,9 @@ function init() {
       width: 800
     };
   
-  Plotly.newPlot('bubble', data, layout);  
+  Plotly.newPlot('bubble', data, layout, {scrollZoom: true});  
 
+    
 
   });
 };
