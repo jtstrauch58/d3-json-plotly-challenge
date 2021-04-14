@@ -36,8 +36,10 @@ function init() {
 
     var layout = {
       title: initial_ID,
-      xaxis: { title: "OTU"},
-      yaxis: { title: "Value"}
+      xaxis: { title: "OTU",
+               showgrid: false},
+      yaxis: { title: "Value",
+               showgrid: false}
     };
 
   Plotly.newPlot("bar", data, layout);
@@ -60,8 +62,13 @@ function init() {
     var data = [trace1];
     
     var layout = {
+      xaxis: {
+        showgrid: false},
+      yaxis: {
+        showgrid: false},  
       title: 'Marker Size and Color',
       showlegend: false,
+      showgrid: false,
       height: 400,
       width: 800
     };
