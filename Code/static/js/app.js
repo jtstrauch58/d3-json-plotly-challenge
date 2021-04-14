@@ -9,7 +9,7 @@ function init() {
     var initial_text =  data.samples[0].otu_labels;
     var demo_info = data.metadata[0];
     
-    var demo = d3.select('.panel-title');
+    var demo = d3.select('#sample-metadata');
     
     console.log(demo_info);
 
