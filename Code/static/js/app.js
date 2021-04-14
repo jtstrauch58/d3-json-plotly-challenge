@@ -1,4 +1,8 @@
 
+// Call updatePlotly() when a change takes place to the DOM
+d3.selectAll("#selDataset").on("change", updatePlotly);
+
+
 // Create an array of each country's numbers
 function init() {
   d3.json("samples.json").then(function(data) {
@@ -70,7 +74,7 @@ function init() {
       showlegend: false,
       showgrid: false,
       height: 400,
-      width: 800
+      width: 500
     };
   
   Plotly.newPlot('bubble', data, layout, {scrollZoom: true});  
