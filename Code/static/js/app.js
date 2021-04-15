@@ -1,9 +1,6 @@
 
-// Call updatePlotly() when a change takes place to the DOM
-d3.selectAll("#selDataset").on("change", updatePlotly);
 
-
-// Create an array of each country's numbers
+// 
 function init() {
   d3.json("samples.json").then(function(data) {
     var initial_ID = data.samples[0].id;
@@ -77,16 +74,10 @@ function init() {
       width: 500
     };
   
-  Plotly.newPlot('bubble', data, layout, {scrollZoom: true});  
-
-    
+  Plotly.newPlot('bubble', data, layout);  
 
   });
 };
-
-
-
-
 
 function unpack(rows, index) {
     return rows.map(function(row) {
@@ -94,15 +85,13 @@ function unpack(rows, index) {
     });
   };
 
+/////////////////////////////////////////////////////////////////////////////////////////
+///// Populate the drop down menu ////
 
 d3.json("samples.json").then(function(data) {
     var otuIDs = [];
-    var otuLabels = [];
-    var otuSample = [];
     for (i=0; i<data.samples.length; i++) {
         otuIDs.push(data.samples[i].id);
-        otuLabels.push(data.samples[i].otu_labels);
-        otuSample.push(data.samples[i].sample_values);
     };
 
     var optionOTU = d3.select("#selDataset");
@@ -111,24 +100,63 @@ d3.json("samples.json").then(function(data) {
     var row = optionOTU.append("option");
     row.text(person);
     });
-
-    d3.selectAll("#selDataset").on("change", getData);
-    function getData() {
-      var dropdownMenu = d3.select("#selDataset");
-      // Assign the value of the dropdown menu option to a variable
-      var dataset = dropdownMenu.property("value");
-      console.log(dataset);
-
-      for (i=0; i<otuIDs.length; i++) {
-        if (otuIDs[i] === dataset)
-          var otuIndex = i;
-        };
-      console.log(otuIndex);
-    };
-
   });
 
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
-// On change to the DOM, call getData()
+//// Listener for ID change ////
+
+d3.selectAll("#selDataset").on("change", getData);
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//// The function to run when there is a change to the selection box ////
+
+function getData() {
+
+  var dropdownMenu = d3.select("#selDataset");
+
+  d3.json("samples.json").then(function(data) {
+    var otuIDs = [];
+    var otuLabels = [];
+    var otuSample = [];
+    var otuText = [];
+    var otuInfo = [];
+    for (i=0; i<data.samples.length; i++) {
+        otuIDs.push(data.samples[i].id);
+        otuLabels.push(data.samples[i].otu_ids);
+        otuSample.push(data.samples[i].sample_values);
+        otuText.push(data.samples[i].otu_labels);
+        otuInfo.push(data.metadata[i]);
+    };
+
+  // Assign the value of the dropdown menu option to newSelection variable
+
+  var newSelection = dropdownMenu.property("value");
+  console.log(newSelection);
+  
+  // find index of the newSelection
+
+  for (i=0; i<otuIDs.length; i++) {
+    if (otuIDs[i] === newSelection)
+      var otuIndex = i;
+    };
+  
+  // update the demographic information
+  var demo = d3.select('#sample-metadata');
+  demo.html('')
+  var demo_info = otuInfo[otuIndex];
+
+  Object.entries(demo_info).forEach(([key, value]) => {
+  console.log(`Key: ${key} and Value ${value}`);
+  var demo_row = demo.append("li");
+  demo_row.text(`${key}: ${value}`);
+  });
+  
+
+  console.log(otuIndex);
+  });
+};
+
 init()
