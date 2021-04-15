@@ -154,6 +154,12 @@ function getData() {
   Plotly.restyle("bar", "x", [x]);
   Plotly.restyle("bar", "y", [y]);
 
+  // update the bubble chart
+  var x = otuIDs[otuIndex].slice(0,9);
+  var x = otuSample[otuIndex].slice(0,9);
+  Plotly.restyle("bubble", "x", [x]);
+  Plotly.restyle("bubble", "y", [y]);
+
   });
 };
 
