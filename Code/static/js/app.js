@@ -48,7 +48,7 @@ function init() {
         opacity: 0.8,
         size: initial_values,
         sizeref: 1.0 * Math.max(initial_values) / (1**2),
-        sizemode: 'area'
+        // sizemode: 'area'
       },
       
     };
@@ -57,26 +57,44 @@ function init() {
     
     var layout = {
       xaxis: {
-        showgrid: false},
+        showgrid: false,
+        title: 'OTU ID',},
       yaxis: {
         showgrid: false},  
-      title: 'Marker Size and Color',
       showlegend: false,
-      showgrid: false,
-      height: 400,
-      width: 500
+      height: 500,
+      width: 900
     };
   
   Plotly.newPlot('bubble', data, layout);  
 
+  var gaugeData = [
+    {
+      domain: { x: [0, 1], y: [0, 1] },
+      value: demo_info.wfreq,
+      title: { text: "Washing Frequency" },
+      type: "indicator",
+      mode: "gauge",
+      gauge: {
+        axis: { range: [null, 9] },
+        steps: [
+          { range: [0, 1], color: "lightgray" },
+          { range: [1, 2], color: "gray" },
+          { range: [2, 3], color: "lightblue" },
+          { range: [3, 4], color: "blue" },
+          { range: [4, 5], color: "lavander" },
+          { range: [5, 6], color: "purple" },
+          { range: [6, 7], color: "gray" },
+          { range: [7, 8], color: "gray" },
+          { range: [8, 9], color: "gray" },
+        ],
+    }
+    }];
+  
+    var gaugeLayout = { width: 400, height: 400, margin: { t: 0, b: 0 } };
+  Plotly.newPlot('gauge-chart', gaugeData, gaugeLayout);
   });
 };
-
-function unpack(rows, index) {
-    return rows.map(function(row) {
-      return row[index];
-    });
-  };
 
 /////////////////////////////////////////////////////////////////////////////////////////
 ///// Populate the drop down menu ////

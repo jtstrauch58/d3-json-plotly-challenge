@@ -1,0 +1,34 @@
+
+.panel {
+    display:inline-block;
+}
+
+#sample-metadata {
+    display: inline-block;
+    float: left;
+}
+
+#bar-chart {
+    display: inline-block;
+    float: left;
+}
+
+#gauge-chart {
+    display: inline-block;
+    float: left;
+    margin-top: 30px;
+}
+
+.text-style {
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
+.panel {
+    margin-top: 20px;
+}
+
+#panel-style {
+    margin-top: 100px;
+
+}
