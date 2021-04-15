@@ -19,9 +19,6 @@ function init() {
     var demo_row = demo.append("li");
     demo_row.text(`${key}: ${value}`);
     });
-    // 
-    // demo_row.text(`${info.key}: ${info.value}`);
-    // });
 
     var trace = {
       x: initial_values.slice(0,9),
@@ -36,11 +33,8 @@ function init() {
     var data = [trace];
 
     var layout = {
-      title: initial_ID,
-      xaxis: { title: "OTU",
-               showgrid: false},
-      yaxis: { title: "Value",
-               showgrid: false}
+      xaxis: {showgrid: false},
+      yaxis: {showgrid: false}
     };
 
   Plotly.newPlot("bar", data, layout);
@@ -48,7 +42,6 @@ function init() {
     var trace1 = {
       x: initial_labels,
       y: initial_values,
-      text: initial_text,
       mode: 'markers',
       marker: {
         color: initial_labels,
@@ -154,8 +147,13 @@ function getData() {
   demo_row.text(`${key}: ${value}`);
   });
   
+  // update the bar chart
 
-  console.log(otuIndex);
+  var x = otuSample[otuIndex].slice(0,9);
+  var y = otuLabels[otuIndex].map((item, index) => `OTU ${item}`).slice(0,9);
+  Plotly.restyle("bar", "x", [x]);
+  Plotly.restyle("bar", "y", [y]);
+
   });
 };
 
