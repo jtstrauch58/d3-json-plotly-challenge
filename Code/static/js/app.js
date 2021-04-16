@@ -20,8 +20,12 @@ function init() {
     demo_row.text(`${key}: ${value}`);
     });
 
+//// Bar chart ////
+
+    var unsorted = initial_values.slice(0,9)
+    var sortedData = unsorted.reverse();
     var trace = {
-      x: initial_values.slice(0,9),
+      x: sortedData,
       y: names.slice(0.9),
       orientation: 'h',
       type: "bar",
@@ -39,6 +43,7 @@ function init() {
 
   Plotly.newPlot("bar", data, layout);
 
+//// Bubble Chart ////
     var trace1 = {
       x: initial_labels,
       y: initial_values,
@@ -48,7 +53,6 @@ function init() {
         opacity: 0.8,
         size: initial_values,
         sizeref: 1.0 * Math.max(initial_values) / (1**2),
-        // sizemode: 'area'
       },
       
     };
@@ -68,6 +72,7 @@ function init() {
   
   Plotly.newPlot('bubble', data, layout);  
 
+//// Gauge Chart ////
   var gaugeData = [
     {
       domain: { x: [0, 1], y: [0, 1] },
@@ -87,7 +92,7 @@ function init() {
           { range: [6, 7], color: "lightblue" },
           { range: [7, 8], color: "slateblue" },
           { range: [8, 9], color: "steelblue" },
-        ],
+        ]
     }
     }];
   
@@ -166,8 +171,9 @@ function getData() {
   });
   
   // update the bar chart
-
-  var x = otuSample[otuIndex].slice(0,9);
+  var unsorted = otuSample[otuIndex].slice(0,9);
+  var sortedData = unsorted.reverse();
+  var x = sortedData;
   var y = otuLabels[otuIndex].map((item, index) => `OTU ${item}`).slice(0,9);
   Plotly.restyle("bar", "x", [x]);
   Plotly.restyle("bar", "y", [y]);
