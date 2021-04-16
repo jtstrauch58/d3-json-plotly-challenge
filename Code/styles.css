@@ -1,6 +1,11 @@
 
 .panel {
     display:inline-block;
+    margin-top: 20px;
+}
+
+#panel-style {
+    margin-top: 100px;
 }
 
 #sample-metadata {
@@ -11,6 +16,7 @@
 #bar-chart {
     display: inline-block;
     float: left;
+    margin-left: 0px;
 }
 
 #gauge-chart {
@@ -20,15 +26,13 @@
 }
 
 .text-style {
-    font-size: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px;
     margin-bottom: 10px;
 }
 
-.panel {
-    margin-top: 20px;
-}
-
-#panel-style {
-    margin-top: 100px;
-
+#row-style {
+    vertical-align: middle;
+    margin-top: -50px;
 }

@@ -78,15 +78,15 @@ function init() {
       gauge: {
         axis: { range: [null, 9] },
         steps: [
-          { range: [0, 1], color: "lightgray" },
-          { range: [1, 2], color: "gray" },
-          { range: [2, 3], color: "lightblue" },
-          { range: [3, 4], color: "blue" },
-          { range: [4, 5], color: "lavander" },
-          { range: [5, 6], color: "purple" },
-          { range: [6, 7], color: "gray" },
-          { range: [7, 8], color: "gray" },
-          { range: [8, 9], color: "gray" },
+          { range: [0, 1], color: "aliceblue" },
+          { range: [1, 2], color: "azure" },
+          { range: [2, 3], color: "lightgrey" },
+          { range: [3, 4], color: "darkgrey" },
+          { range: [4, 5], color: "gray" },
+          { range: [5, 6], color: "slategray" },
+          { range: [6, 7], color: "lightblue" },
+          { range: [7, 8], color: "slateblue" },
+          { range: [8, 9], color: "steelblue" },
         ],
     }
     }];
@@ -178,6 +178,9 @@ function getData() {
   Plotly.restyle("bubble", "x", [x]);
   Plotly.restyle("bubble", "y", [y]);
 
+  // update the gauge chart
+  var value = otuInfo[otuIndex].wfreq
+  Plotly.restyle("gauge-chart", "value", [value]);
   });
 };
 
